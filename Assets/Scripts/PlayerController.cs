@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask movementMask;
 
     Camera cam;
+    PlayerMotor motor;
     
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
-  
+        motor = GetComponent<PlayerMotor>();
     }
 
     // Update is called once per frame
@@ -26,12 +27,26 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100, movementMask))
             {
                 Debug.Log("We hit " + hit.collider.name + " " + hit.point);
-                
-                // move our player to what we hit
+
+                motor.MoveToPoint(hit.point);
 
                 // stop focusing any objects
             }
         }
-        
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+
+                //check if we hit inter
+
+                // stop focusing any objects
+            }
+        }
+
     }
 }
